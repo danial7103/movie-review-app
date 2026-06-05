@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'form_page.dart';
 import 'profile.dart';
+import 'movie_details.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -40,10 +42,10 @@ class HomePage extends StatelessWidget {
       },
     ];
 
-    return Scaffold(
-      backgroundColor: const Color(0xFF121212),
+    return Container(
+      color: const Color(0xFF121212),
 
-      body: SafeArea(
+      child: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16),
@@ -54,18 +56,19 @@ class HomePage extends StatelessWidget {
 
                 // HEADER
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
                   children: [
 
                     const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
                       children: [
-
                         Text(
                           "Welcome Back 👋",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 32,
+                            fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -79,7 +82,6 @@ class HomePage extends StatelessWidget {
                             fontSize: 16,
                           ),
                         ),
-
                       ],
                     ),
 
@@ -88,15 +90,15 @@ class HomePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ProfilePage(),
+                            builder: (context) =>
+                                const ProfilePage(),
                           ),
                         );
                       },
-
-                      child: CircleAvatar(
+                      child: const CircleAvatar(
                         radius: 28,
                         backgroundColor: Colors.red,
-                        child: const Icon(
+                        child: Icon(
                           Icons.person,
                           color: Colors.white,
                         ),
@@ -107,56 +109,68 @@ class HomePage extends StatelessWidget {
 
                 const SizedBox(height: 25),
 
-                // FEATURED MOVIE
-                Container(
-                  height: 300,
-                  width: double.infinity,
-
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-
-                    image: const DecorationImage(
-                      image: AssetImage(
-                        "assets/images/insterstellar_banner.jpg",
-                      ),
-                      fit: BoxFit.cover,
-                      
-                    ),
-                  ),
-
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-
-                        colors: [
-                          Colors.black.withOpacity(0.9),
-                          Colors.transparent,
-                        ],
-                      ),
-                    ),
-
-                    padding: const EdgeInsets.all(20),
-
-                    child: const Align(
-                      alignment: Alignment.bottomLeft,
-
-                      child: Text(
-                        "Movie Of The Week\nInterstellar",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                // FEATURED MOVIES
+                const Text(
+                  "Featured Movies 🎬",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 15),
+
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 220,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                    viewportFraction: 0.95,
+                    autoPlayInterval:
+                        const Duration(seconds: 4),
+                  ),
+
+                  items: [
+
+                  movieBanner(
+                    context,
+                    "assets/gif/intersteller.gif",
+                    "Interstellar",
+                    "In a dystopian future where Earth's crops are failing and dust storms are destroying humanity, a former NASA pilot named Cooper leaves his family to lead a crew through a wormhole. Their mission is to find a habitable exoplanet and ensure the survival of the human race.",
+                  ),
+
+                  movieBanner(
+                    context,
+                    "assets/gif/joker.gif",
+                    "Joker",
+                    "The 2019 film Joker follows Arthur Fleck, a mentally ill and impoverished party clown in 1980s Gotham City. Ostracized by society and suffering from a condition that causes him to laugh uncontrollably, Arthur's descent into madness and violence sparks a deadly counter-cultural revolution.",
+                  ),
+
+                  movieBanner(
+                    context,
+                    "assets/gif/batman.gif",
+                    "Batman",
+                    "The Batman follows Bruce Wayne as he investigates the Riddler's murders while uncovering corruption throughout Gotham City and secrets connected to his family.",
+                  ),
+
+                  movieBanner(
+                    context,
+                    "assets/gif/avengers endgame.gif",
+                    "Avengers Endgame",
+                    "The surviving Avengers unite to reverse Thanos' snap and restore half of all life in the universe through a daring time-travel mission.",
+                  ),
+
+                  movieBanner(
+                    context,
+                    "assets/gif/fastx-the-fast-saga.gif",
+                    "Fast X",
+                    "Dom Toretto and his family face Dante Reyes, a dangerous enemy seeking revenge and determined to destroy everything Dom loves.",
+                  ),
+                ],
+                ),
+
+                const SizedBox(height: 25),
 
                 const Text(
                   "Trending Movies",
@@ -169,9 +183,8 @@ class HomePage extends StatelessWidget {
 
                 const SizedBox(height: 15),
 
-                // MOVIE CARDS
                 SizedBox(
-                  height: 390,
+                  height: 360,
 
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -182,62 +195,67 @@ class HomePage extends StatelessWidget {
                       final movie = movies[index];
 
                       return Container(
-                        width: 220,
-                        margin: const EdgeInsets.only(right: 15),
+                        width: 170,
+                        margin:
+                            const EdgeInsets.only(right: 12),
 
                         child: Card(
                           color: const Color(0xFF1E1E1E),
-                          elevation: 8,
+                          elevation: 5,
                           clipBehavior: Clip.antiAlias,
 
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius:
+                                BorderRadius.circular(20),
                           ),
 
                           child: Column(
                             crossAxisAlignment:
                                 CrossAxisAlignment.start,
-
                             children: [
 
-                              // POSTER
                               Image.asset(
                                 movie["image"]!,
-                                height: 250,
+                                height: 180,
                                 width: double.infinity,
                                 fit: BoxFit.cover,
                               ),
 
                               Padding(
-                                padding: const EdgeInsets.all(12),
+                                padding:
+                                    const EdgeInsets.all(10),
 
                                 child: Column(
                                   crossAxisAlignment:
                                       CrossAxisAlignment.start,
-
                                   children: [
 
                                     Text(
                                       movie["title"]!,
-                                      style: const TextStyle(
+                                      maxLines: 1,
+                                      overflow:
+                                          TextOverflow.ellipsis,
+                                      style:
+                                          const TextStyle(
                                         color: Colors.white,
-                                        fontSize: 20,
+                                        fontSize: 18,
                                         fontWeight:
                                             FontWeight.bold,
                                       ),
                                     ),
 
-                                    const SizedBox(height: 5),
+                                    const SizedBox(height: 4),
 
                                     Text(
                                       movie["genre"]!,
-                                      style: const TextStyle(
+                                      style:
+                                          const TextStyle(
                                         color: Colors.grey,
-                                        fontSize: 14,
+                                        fontSize: 13,
                                       ),
                                     ),
 
-                                    const SizedBox(height: 10),
+                                    const SizedBox(height: 8),
 
                                     Row(
                                       children: [
@@ -245,10 +263,10 @@ class HomePage extends StatelessWidget {
                                         const Icon(
                                           Icons.star,
                                           color: Colors.amber,
-                                          size: 20,
+                                          size: 18,
                                         ),
 
-                                        const SizedBox(width: 5),
+                                        const SizedBox(width: 4),
 
                                         Text(
                                           movie["rating"]!,
@@ -259,38 +277,46 @@ class HomePage extends StatelessWidget {
                                                 FontWeight.bold,
                                           ),
                                         ),
+                                      ],
+                                    ),
 
-                                        const Spacer(),
+                                    const SizedBox(height: 10),
 
-                                        ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.red,
-                                            minimumSize: const Size(80, 35),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(20),
-                                            ),
-                                          ),
+                                    SizedBox(
+                                      width: double.infinity,
+                                      height: 35,
 
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => FormPage(
-                                                  movieName: movie["title"]!,
-                                                ),
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) =>
+                                                      FormPage(
+                                                movieName:
+                                                    movie[
+                                                        "title"]!,
                                               ),
-                                            );
-                                          },
-
-                                          child: const Text(
-                                            "Review",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12,
                                             ),
+                                          );
+                                        },
+
+                                        style:
+                                            ElevatedButton
+                                                .styleFrom(
+                                          backgroundColor:
+                                              Colors.red,
+                                        ),
+
+                                        child: const Text(
+                                          "Review",
+                                          style: TextStyle(
+                                            color:
+                                                Colors.white,
                                           ),
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -311,4 +337,69 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget movieBanner(
+  BuildContext context,
+  String image,
+  String title,
+  String synopsis,
+) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MovieDetailsPage(
+            title: title,
+            image: image,
+            synopsis: synopsis,
+          ),
+        ),
+      );
+    },
+
+    child: Container(
+      width: MediaQuery.of(context).size.width,
+
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+
+        image: DecorationImage(
+          image: AssetImage(image),
+          fit: BoxFit.cover,
+        ),
+      ),
+
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [
+              Colors.black87,
+              Colors.transparent,
+            ],
+          ),
+        ),
+
+        padding: const EdgeInsets.all(20),
+
+        child: Align(
+          alignment: Alignment.bottomLeft,
+
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
 }
