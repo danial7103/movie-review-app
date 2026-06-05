@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'form_page.dart';
 import 'profile.dart';
+import 'login.dart';
 import 'movie_details.dart';
 
 class HomePage extends StatelessWidget {
@@ -85,25 +86,115 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
 
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const ProfilePage(),
+                    PopupMenuButton<String>(
+                    color: const Color(0xFF1E1E1E),
+                    offset: const Offset(0, 60),
+
+                    onSelected: (value) {
+                      switch (value) {
+                        case 'profile':
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProfilePage(),
+                            ),
+                          );
+                          break;
+
+                        case 'settings':
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Settings page coming soon'),
+                            ),
+                          );
+                          break;
+
+                        case 'logout':
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Logout'),
+                            content: const Text(
+                              'Are you sure you want to logout?',
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Cancel'),
+                              ),
+
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const LoginPage(),
+                                    ),
+                                    (route) => false,
+                                  );
+                                },
+                                child: const Text('Logout'),
+                              ),
+                            ],
                           ),
                         );
-                      },
-                      child: const CircleAvatar(
-                        radius: 28,
-                        backgroundColor: Colors.red,
-                        child: Icon(
-                          Icons.person,
-                          color: Colors.white,
+                        break;
+                      }
+                    },
+
+                    itemBuilder: (context) => [
+                      const PopupMenuItem(
+                        value: 'profile',
+                        child: Row(
+                          children: const [
+                            Icon(Icons.person, color: Colors.white),
+                            SizedBox(width: 10),
+                            Text(
+                              'My Profile',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
                         ),
                       ),
+
+                      const PopupMenuItem(
+                        value: 'settings',
+                        child: Row(
+                          children: [
+                            Icon(Icons.settings, color: Colors.white),
+                            SizedBox(width: 10),
+                            Text('Settings',
+                                style: TextStyle(color: Colors.white) 
+                                ),
+                          ],
+                        ),
+                      ),
+
+                      const PopupMenuItem(
+                        value: 'logout',
+                        child: Row(
+                          children: [
+                            Icon(Icons.logout, color: Colors.red),
+                            SizedBox(width: 10),
+                            Text('Logout',
+                                style: TextStyle(color: Colors.red) 
+                                ),
+                          ],
+                        ),
+                      ),
+                    ],
+
+                    child: const CircleAvatar(
+                      radius: 28,
+                      backgroundColor: Colors.red,
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
                     ),
+                  ),
                   ],
                 ),
 

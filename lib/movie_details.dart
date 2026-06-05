@@ -18,8 +18,20 @@ class MovieDetailsPage extends StatelessWidget {
       backgroundColor: const Color(0xFF121212),
 
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text(title),
+        backgroundColor: const Color(0xFF121212),
+        elevation: 0,
+
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+
+        title: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
 
       body: SingleChildScrollView(

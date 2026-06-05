@@ -8,23 +8,6 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
     backgroundColor: const Color(0xFF121212),
-    appBar: AppBar(
-      
-    backgroundColor: const Color(0xFF121212),
-    elevation: 0,
-
-    iconTheme: const IconThemeData(
-      color: Colors.white,
-    ),
-
-    title: const Text(
-      "Profile",
-      style: TextStyle(
-        color: Colors.white,
-      ),
-    ),
-  ),
-
     body: SafeArea(
       child: SingleChildScrollView(
         child: Padding(
