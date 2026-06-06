@@ -3,6 +3,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'form_page.dart';
 import 'profile.dart';
 import 'login.dart';
+import 'settings.dart';
+import 'my_reviews.dart';
 import 'movie_details.dart';
 
 class HomePage extends StatelessWidget {
@@ -101,10 +103,19 @@ class HomePage extends StatelessWidget {
                           );
                           break;
 
+                        case 'reviews':
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MyReviewsPage(),
+                            ),
+                          );
+
                         case 'settings':
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Settings page coming soon'),
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SettingsPage(),
                             ),
                           );
                           break;
@@ -160,17 +171,34 @@ class HomePage extends StatelessWidget {
                       ),
 
                       const PopupMenuItem(
-                        value: 'settings',
+                      value: "reviews",
                         child: Row(
                           children: [
-                            Icon(Icons.settings, color: Colors.white),
+                            Icon(Icons.rate_review),
                             SizedBox(width: 10),
-                            Text('Settings',
-                                style: TextStyle(color: Colors.white) 
-                                ),
+                            Text(
+                              "My Reviews",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ],
                         ),
                       ),
+
+                      const PopupMenuItem(
+                        value: 'settings',
+                        child: Row(
+                          children: const [
+                            Icon(Icons.settings, color: Colors.white),
+                            SizedBox(width: 10),
+                            Text(
+                              'Settings',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const PopupMenuDivider(),
 
                       const PopupMenuItem(
                         value: 'logout',

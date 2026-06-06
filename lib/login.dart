@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'signup.dart';
 import 'navigation.dart';
+import 'session.dart';
+import 'database_helper.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,30 +16,38 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  void loginUser() {
+  Future<void> loginUser() async {
+      String email = emailController.text;
+      String password = passwordController.text;
 
-    String email = emailController.text;
-    String password = passwordController.text;
-
-    if (email == "movie@gmail.com" && password == "1234") {
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const NavigationPage(),
-        ),
+      bool userExists =
+          await DatabaseHelper.instance.loginUser(
+        email,
+        password,
       );
 
-    } else {
+      if (userExists) {
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Invalid Email or Password"),
-        ),
-      );
+        Session.currentUserEmail = email;
+        print("Logged in user: ${Session.currentUserEmail}");
 
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                const NavigationPage(),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              "Invalid Email or Password",
+            ),
+          ),
+        );
+      }
     }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,6 +166,26 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 15),
+
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const SignUpPage(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Don't have an account? Sign Up",
+                      style: TextStyle(
+                        color: Colors.red,
                       ),
                     ),
                   ),

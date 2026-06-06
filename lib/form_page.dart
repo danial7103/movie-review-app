@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'database_helper.dart';
+import 'session.dart';
 
 class FormPage extends StatefulWidget {
   final String movieName;
@@ -152,9 +154,16 @@ class _FormPageState extends State<FormPage> {
                     backgroundColor: Colors.red,
                   ),
 
-                  onPressed: () {
-                    if (_formKey.currentState!
-                        .validate()) {
+                  onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+
+                    await DatabaseHelper.instance.addReview(
+                      movieController.text,
+                      commentController.text,
+                      double.parse(ratingController.text),
+                      characterController.text,
+                      Session.currentUserEmail,
+                    );
 
                       showDialog(
                         context: context,
@@ -242,6 +251,18 @@ class _FormPageState extends State<FormPage> {
       validator: (value) {
         if (value == null || value.isEmpty) {
           return "Please enter $label";
+        }
+
+        if (label == "Rating (1-10)") {
+          final rating = double.tryParse(value);
+
+          if (rating == null) {
+            return "Please enter a valid number";
+          }
+
+          if (rating < 1 || rating > 10) {
+            return "Rating must be between 1 and 10";
+          }
         }
 
         return null;
