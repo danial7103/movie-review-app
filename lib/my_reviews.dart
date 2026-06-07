@@ -22,6 +22,18 @@ class _MyReviewsPageState
   }
 
   Future<void> loadReviews() async {
+  print("LOAD REVIEWS CALLED");
+  
+  final db = await DatabaseHelper.instance.database;
+
+  final users = await db.query('users');
+  print("USERS TABLE:");
+  print(users);
+
+  final reviewsData = await db.query('reviews');
+  print("REVIEWS TABLE:");
+  print(reviewsData);
+  
   final data =
       await DatabaseHelper.instance.getUserReviews(
       Session.currentUserEmail,
