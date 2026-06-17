@@ -43,6 +43,24 @@ class HomePage extends StatelessWidget {
         "rating": "7.9",
         "image": "assets/images/FastX.jpg",
       },
+      {
+        "title": "Spider-Man: No Way Home",
+        "genre": "Superhero",
+        "rating": "8.2",
+        "image": "assets/images/spiderman.jpg",
+      },
+      {
+        "title": "Oppenheimer",
+        "genre": "Biography",
+        "rating": "8.6",
+        "image": "assets/images/oppenheimer.jpg",
+      },
+      {
+        "title": "The Flash",
+        "genre": "Action",
+        "rating": "7.8",
+        "image": "assets/images/flash.jpg",
+      },
     ];
 
     return Container(
@@ -285,6 +303,24 @@ class HomePage extends StatelessWidget {
                     "assets/gif/fastx-the-fast-saga.gif",
                     "Fast X",
                     "Dom Toretto and his family face Dante Reyes, a dangerous enemy seeking revenge and determined to destroy everything Dom loves.",
+                  ),
+                  movieBanner(
+                    context,
+                    "assets/gif/spiderman.gif",
+                    "Spider-Man: No Way Home",
+                    "Peter Parker's life and reputation are turned upside down when his identity as Spider-Man is revealed to the world.",
+                  ),
+                  movieBanner(
+                    context,
+                    "assets/gif/oppenheimer.gif",
+                    "Oppenheimer",
+                    "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.",
+                  ),
+                  movieBanner(
+                    context,
+                    "assets/gif/flash.gif",
+                    "The Flash",
+                    "Barry Allen uses his super speed to change the past, but his attempt to save his family creates a world without superheroes, forcing him to race for his life to save the future.",
                   ),
                 ],
                 ),

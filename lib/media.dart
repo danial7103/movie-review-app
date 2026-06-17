@@ -42,7 +42,29 @@ class MediaPage extends StatelessWidget {
         "synopsis":
             "Dom Toretto and his family are targeted by Dante Reyes, the vengeful son of a slain Brazilian drug lord. Fueled by a 12-year-old blood vendetta, Dante plots to destroy everything and everyone Dom loves.",
       },
+      {
+        "title": "Spider-Man: No Way Home",
+        "genre": "Action",
+        "image": "assets/images/spiderman.jpg",
+        "synopsis":
+            "Peter Parker's life and reputation are turned upside down when his identity as Spider-Man is revealed to the world.",
+      },
+      {
+        "title": "Oppenheimer",
+        "genre": "Biography",
+        "image": "assets/images/oppenheimer.jpg",
+        "synopsis":
+            "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.",
+      },
+      {
+        "title": "The Flash",
+        "genre": "Action",
+        "image": "assets/images/flash.jpg",
+        "synopsis":
+            "Barry Allen uses his super speed to change the past, but his attempt to save his family creates a world without superheroes, forcing him to race for his life to save the future.",
+      },    
     ];
+
 
     return SafeArea(
       child: Padding(
